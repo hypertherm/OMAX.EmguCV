@@ -129,6 +129,16 @@ namespace Emgu.CV
             GapiInvoke.cveGComputationApply5(_ptr, input, output);
         }
 
+        public void Apply(Mat input, Mat output, GCompileArgs args)
+        {
+            GapiInvoke.cveGComputationApply6(_ptr, input, output, args);
+        }
+
+        public void Apply(VectorOfMat input, VectorOfMat output, GCompileArgs args)
+        {
+            GapiInvoke.cveGComputationApply7(_ptr, input, output, args);
+        }
+
         /// <summary>
         /// Release all the unmanaged memory associated with the GComputation
         /// </summary>
@@ -178,6 +188,11 @@ namespace Emgu.CV
         [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
         internal static extern void cveGComputationApply5(IntPtr computation, IntPtr inputs, IntPtr outputs);
 
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        internal static extern void cveGComputationApply6(IntPtr computation, IntPtr input, IntPtr output, IntPtr args);
+
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        internal static extern void cveGComputationApply7(IntPtr computation, IntPtr inputs, IntPtr outputs, IntPtr args);
     }
 }
 

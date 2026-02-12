@@ -1513,6 +1513,39 @@ namespace Emgu.CV
         [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
         private static extern IntPtr cveGapiBayerGR2RGB(IntPtr srcGR);
 
+        public static GMat BayerGR2BGR(GMat src)
+        {
+            return new GMat(
+                cveGapiBayerGR2BGR(src),
+                true
+            );
+        }
+
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        private static extern IntPtr cveGapiBayerGR2BGR(IntPtr srcGR);
+
+        public static GMat BayerBG2BGR(GMat src)
+        {
+            return new GMat(
+                cveGapiBayerBG2BGR(src),
+                true
+            );
+        }
+
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        private static extern IntPtr cveGapiBayerBG2BGR(IntPtr srcBG);
+
+        public static GMat BGR2RGBA(GMat src)
+        {
+            return new GMat(
+                cveGapiBGR2RGBA(src),
+                true
+            );
+        }
+
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        private static extern IntPtr cveGapiBGR2RGBA(IntPtr src);
+
         /// <summary>
         /// Converts an image from RGB color space to HSV.
         /// </summary>
@@ -2156,6 +2189,13 @@ namespace Emgu.CV
         }
         [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
         private static extern IntPtr cveGapiStereo(IntPtr left, IntPtr right, StereoOutputFormat of);
+
+        public static GKernelPackage Combine(GKernelPackage p1, GKernelPackage p2)
+        {
+            return new GKernelPackage(cveGKernelPackageCombine(p1, p2));
+        }
+        [DllImport(CvInvoke.ExternLibrary, CallingConvention = CvInvoke.CvCallingConvention)]
+        private static extern IntPtr cveGKernelPackageCombine(IntPtr p1, IntPtr p2);
     }
 }
 

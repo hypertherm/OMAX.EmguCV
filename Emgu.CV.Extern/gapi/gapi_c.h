@@ -15,6 +15,14 @@
 #include "opencv2/gapi/core.hpp"
 #include "opencv2/gapi/imgproc.hpp"
 #include "opencv2/gapi/stereo.hpp"
+#include "opencv2/gapi/ocl/core.hpp"
+#include "opencv2/gapi/ocl/imgproc.hpp"
+#include "opencv2/gapi/cpu/core.hpp"
+#include "opencv2/gapi/cpu/imgproc.hpp"
+#include "opencv2/gapi/fluid/core.hpp"
+#include "opencv2/gapi/fluid/imgproc.hpp"
+#include "opencv2/gapi/ocl/goclkernel.hpp"
+#include "opencv2/core/ocl.hpp"
 #else
 static inline CV_NORETURN void throw_no_gapi() { CV_Error(cv::Error::StsBadFunc, "The library is compiled without gapi support. To use this module, please switch to the full Emgu CV runtime."); }
 namespace cv {
@@ -163,6 +171,8 @@ CVAPI(void) cveGComputationApply2(cv::GComputation* computation, cv::Mat* input,
 CVAPI(void) cveGComputationApply3(cv::GComputation* computation, cv::Mat* input1, cv::Mat* input2, cv::Mat* output);
 CVAPI(void) cveGComputationApply4(cv::GComputation* computation, cv::Mat* input1, cv::Mat* input2, CvScalar* output);
 CVAPI(void) cveGComputationApply5(cv::GComputation* computation, std::vector< cv::Mat >* inputs, std::vector< cv::Mat >* outputs);
+CVAPI(void) cveGComputationApply6(cv::GComputation * computation, cv::Mat * input, cv::Mat * output, cv::GCompileArgs * args);
+CVAPI(void) cveGComputationApply7(cv::GComputation * computation, std::vector< cv::Mat >*inputs, std::vector< cv::Mat >*outputs, cv::GCompileArgs * args);
 
 CVAPI(cv::GScalar*) cveGScalarCreate(CvScalar* value);
 CVAPI(void) cveGScalarRelease(cv::GScalar** gscalar);
@@ -305,6 +315,15 @@ CVAPI(cv::GMat*) cveGapiNV12toBGR(cv::GMat* srcY, cv::GMat* srcUV);
 CVAPI(cv::GMat*) cveGapiBayerGR2RGB(cv::GMat* srcGR);
 CVAPI(cv::GMat*) cveGapiRGB2HSV(cv::GMat* src);
 CVAPI(cv::GMat*) cveGapiRGB2YUV422(cv::GMat* src);
+
+CVAPI(cv::GCompileArgs*) cveGCompileArgsCreate(cv::GKernelPackage * pkg);
+CVAPI(void) cveGCompileArgsRelease(cv::GCompileArgs * *args);
+CVAPI(cv::GKernelPackage*) cveGKernelPackageCombine(cv::GKernelPackage * pkg1, cv::GKernelPackage * pkg2);
+CVAPI(cv::GKernelPackage*) cveGKernelPackageCoreCpuGet();
+CVAPI(cv::GKernelPackage*) cveGKernelPackageImgProcCpuGet();
+CVAPI(cv::GKernelPackage*) cveGKernelPackageCoreOclGet();
+CVAPI(cv::GKernelPackage*) cveGKernelPackageImgProcOclGet();
+CVAPI(void) cveGKernelPackageRelease(cv::GKernelPackage * *pkg);
 
 
 CVAPI(cv::GMat*) cveGapiStereo(cv::GMat* left, cv::GMat* right, int of);

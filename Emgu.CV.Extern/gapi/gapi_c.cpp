@@ -852,6 +852,108 @@ void cveGComputationApply5(cv::GComputation* computation, std::vector< cv::Mat >
 	throw_no_gapi();
 #endif
 }
+void cveGComputationApply6(cv::GComputation * computation, cv::Mat * input, cv::Mat * output, cv::GCompileArgs * args)
+{
+#ifdef HAVE_OPENCV_GAPI
+	computation->apply(*input, *output, std::move(*args));
+#else
+	throw_no_gapi();
+#endif
+}
+
+void cveGComputationApply7(cv::GComputation * computation, std::vector< cv::Mat >*inputs, std::vector< cv::Mat >*outputs, cv::GCompileArgs * args)
+{
+#ifdef HAVE_OPENCV_GAPI
+	 computation->apply(*inputs, *outputs, std::move(*args));
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GCompileArgs * cveGCompileArgsCreate(cv::GKernelPackage * pkg)
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GCompileArgs * args = new cv::GCompileArgs(cv::compile_args(*pkg));
+	return args;
+#else
+	throw_no_gapi();
+#endif
+}
+
+void cveGCompileArgsRelease(cv::GCompileArgs * *args)
+{
+#ifdef HAVE_OPENCV_GAPI
+	delete * args;
+	*args = 0;
+#else
+	throw_no_gapi();
+#endif
+}
+
+void cveGKernelPackageRelease(cv::GKernelPackage * *pkg)
+{
+#ifdef HAVE_OPENCV_GAPI
+	delete * pkg;
+	*pkg = 0;
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GKernelPackage * cveGKernelPackageCombine(cv::GKernelPackage * pkg1, cv::GKernelPackage * pkg2)
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GKernelPackage * result = new cv::GKernelPackage();
+	*result = cv::gapi::combine(*pkg1, *pkg2);
+	return result;
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GKernelPackage * cveGKernelPackageCoreCpuGet()
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GKernelPackage * result = new cv::GKernelPackage();
+	*result = cv::gapi::core::cpu::kernels();
+	return result;
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GKernelPackage * cveGKernelPackageImgProcCpuGet()
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GKernelPackage * result = new cv::GKernelPackage();
+	*result = cv::gapi::imgproc::cpu::kernels();
+	return result;
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GKernelPackage * cveGKernelPackageCoreOclGet()
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GKernelPackage * result = new cv::GKernelPackage();
+	*result = cv::gapi::core::ocl::kernels();
+	return result;
+#else
+	throw_no_gapi();
+#endif
+}
+
+cv::GKernelPackage * cveGKernelPackageImgProcOclGet()
+{
+#ifdef HAVE_OPENCV_GAPI
+	cv::GKernelPackage * result = new cv::GKernelPackage();
+	*result = cv::gapi::imgproc::ocl::kernels();
+	return result;
+#else
+	throw_no_gapi();
+#endif
+}
 
 cv::GScalar* cveGScalarCreate(CvScalar* value)
 {
